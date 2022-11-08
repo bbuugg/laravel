@@ -13,5 +13,6 @@ return [
         'extensions'    => '扩展',
         'scaffold'      => '代码生成器',
         'icons'         => '图标',
+        'lessons'       => '课程管理',
     ],
 ];

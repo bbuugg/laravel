@@ -5,8 +5,9 @@ namespace App\Admin\Controllers;
 use App\Admin\Repositories\Lesson;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
-use Dcat\Admin\Show;
 use Dcat\Admin\Http\Controllers\AdminController;
+use Dcat\Admin\Layout\Content;
+use Dcat\Admin\Show;
 
 class LessonController extends AdminController
 {
@@ -60,9 +61,25 @@ class LessonController extends AdminController
             $form->display('id');
             $form->text('title', '标题');
             $form->select('mode', '模式')->options(['章节', '节']);
-
             $form->display('created_at', '创建时间');
             $form->display('updated_at', '更新时间');
         });
+    }
+
+    public function edit($id, Content $content)
+    {
+        return $content->title('编辑')
+                       ->body(Form::make(new Lesson(), function (Form $form) use ($id) {
+                           $form->title($this->title());
+                           $form->display('id');
+                           $form->text('title', '标题');
+                           $form->select('mode', '模式')->options(['章节', '节']);
+                           $form->display('created_at', '创建时间');
+                           $form->display('updated_at', '更新时间');
+                           $form->tools(function (Form\Tools $tools) use ($id) {
+                               $url = route('dcat.admin.chapter.index', ['lessonId' => $id]);
+                               $tools->append("<a class='btn btn-sm btn-primary mallto-next' href='{$url}'>章列表</a> &nbsp;");
+                           });
+                       })->edit($id));
     }
 }
