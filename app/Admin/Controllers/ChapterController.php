@@ -93,7 +93,7 @@ class ChapterController extends AdminController
         /** @var \App\Models\Chapter $chapter */
         $chapter = \App\Models\Chapter::with(['lesson'])->find($id);
         $content->title(sprintf('编辑 %s - %s 章', $chapter->lesson->title, $chapter->title));
-        return $content->body(Form::make(new Chapter(), function (Form $form) use ($chapter) {
+        return $content->body(Form::make(new Chapter(), function (Form $form) use ($chapter, $id) {
             $form->display('id');
             $form->display('lesson_name', '课程名称')->value($chapter->lesson->title);
             $form->text('title');
@@ -101,6 +101,10 @@ class ChapterController extends AdminController
             $form->display('created_at');
             $form->display('updated_at');
             $form->lesson_id = $chapter->lesson->id;
-        }));
+            $form->tools(function (Form\Tools $tools) use ($chapter, $id) {
+                $url = route('dcat.admin.section.index', ['chapterId' => $id, 'lessonId' => $chapter->lesson_id]);
+                $tools->append("<a class='btn btn-sm btn-primary mallto-next' href='{$url}'>节列表</a> &nbsp;");
+            });
+        })->edit($id));
     }
 }

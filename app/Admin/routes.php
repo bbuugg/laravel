@@ -15,4 +15,5 @@ Route::group([
     $router->get('/', 'HomeController@index');
     $router->resource('lesson', 'LessonController');
     $router->resource('lesson/{lessonId}/chapter', 'ChapterController');
+    $router->resource('lesson/{lessonId}/chapter/{chapterId}/section', 'SectionController');
 });

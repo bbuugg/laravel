@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return \App\Models\Question::with(['answers'])->get();
 });
 
-Route::apiResource('lesson', \App\Http\Controllers\LessonController::class);
+Route::get('lesson', [\App\Http\Controllers\LessonController::class, 'index']);

@@ -14,7 +14,9 @@ class LessonController extends Controller
      */
     public function index()
     {
-        return Response::json(Lesson::with(['chapters.sections'])->get());
+        $lesson = Lesson::with(['chapters.sections'])->first();
+
+        return view('lesson', compact('lesson'));
     }
 
     /**

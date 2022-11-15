@@ -12,12 +12,10 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('chapters', function (Blueprint $table) {
+        Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('lesson_id')->comment('课程ID');
-            $table->string('title')->comment('章名称');
-            $table->string('description')->comment('描述');
-            $table->unsignedInteger('order')->comment('排序');
+            $table->string('content')->comment('问题内容');
+            $table->unsignedTinyInteger('type')->default(0)->comment('问题类型');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('chapter');
+        Schema::dropIfExists('questions');
     }
 };

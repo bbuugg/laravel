@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 class Section extends Model
 {
@@ -14,4 +13,7 @@ class Section extends Model
         'lesson_id'  => 'integer',
         'chapter_id' => 'integer',
     ];
+
+    public const TYPE_HTML = 0;
+    public const TYPE_EXAM = 1;
 }

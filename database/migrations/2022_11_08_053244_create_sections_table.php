@@ -18,6 +18,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('chapter_id')->comment('章ID');
             $table->string('title')->comment('节名称');
             $table->text('content')->comment('节内容');
+            $table->unsignedTinyInteger('type')->default(0)->comment('类型');
+            $table->unsignedInteger('order')->default(0)->comment('排序');
             $table->timestamps();
         });
     }
