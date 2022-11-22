@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return \App\Models\Question::with(['answers'])->get();
-});
+Route::get('/', [\App\Http\Controllers\IndexController::class, 'index']);
+Route::resource('article', \App\Http\Controllers\ArticleController::class);
 
 Route::get('lesson', [\App\Http\Controllers\LessonController::class, 'index']);

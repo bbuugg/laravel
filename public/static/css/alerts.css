@@ -1,0 +1,55 @@
+/* ALERTS */
+#header-banner{text-align:center;z-index:9999;}
+/*#header-banner .success,#header-banner .info, #header-banner .danger,#header-banner .warning,#header-banner .default{min-height:60px;position:absolute;width:100%;top:0;left:0;padding:20px 60px;}*/
+#header-banner .success{background:#48c9b0;color:#fff;}
+#header-banner .default{background:#eee;color:#777;}
+#header-banner .info{background:#5dade2;color:#fff;}
+#header-banner .warning{background:#f4d313;color:#fff;}
+#header-banner .danger{background:#ec7063;color:#fff;}
+#header-banner p{text-align:center;position:relative;}
+#header-banner #header-banner-content a{color:#1c1c1c;}
+#header-banner #header-banner-content a:hover{color:#7ab80e;}
+#header-banner .close-btn{position:absolute;right:15px;color:#222;top:15px;width:30px;height:30px;line-height:30px;padding:0;}
+#header-banner span.alert-header {font-weight: 700;}
+
+.header-banner-holder{position: relative;}
+
+.top_header{
+	position:absolute;top:0px;width: 100%;
+}
+.sticky_footer{
+	position:fixed;bottom:0px;width: 100%;
+	z-index: 10000;
+
+}
+#header-banner.top_header .success,
+#header-banner.top_header .info,
+#header-banner.top_header .danger,
+#header-banner.top_header .warning,
+#header-banner.top_header .default{
+	top:0;
+    left: 0;
+    min-height: 60px;
+    padding: 20px 60px;
+    position: absolute;
+    width: 100%;
+}
+
+#header-banner.sticky_footer .success,
+#header-banner.sticky_footer .info,
+#header-banner.sticky_footer .danger,
+#header-banner.sticky_footer .warning,
+#header-banner.sticky_footer .default{
+	bottom:0;
+    left: 0;
+    min-height: 60px;
+    padding: 20px 60px;
+    position: absolute;
+    width: 100%;
+}
+
+
+#header-banner.top_header .template2
+{
+    padding: 20px;
+}
