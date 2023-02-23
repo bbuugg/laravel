@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en-us">
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="https://hostiso.com/favicon.ico">
     <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'>
     <link media="all" href="/static/css/autoptimize_2274755974865289a15a02a7946f8ad5.css" rel="stylesheet">
-    <title>@yield('title')</title>
+    <title>@yield('title', '首页')</title>
     <meta name="description" content="Web hosting for all your needs, from shared, vps, cloud to dedicated servers!">
     <link rel="canonical" href="">
     <meta property="og:locale" content="en_US">

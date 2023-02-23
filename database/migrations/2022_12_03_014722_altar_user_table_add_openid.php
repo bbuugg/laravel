@@ -12,11 +12,8 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('questions', function (Blueprint $table) {
-            $table->id();
-            $table->string('content')->comment('问题内容');
-            $table->unsignedTinyInteger('type')->default(0)->comment('问题类型');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('openid');
         });
     }
 
@@ -27,6 +24,8 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('questions');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn(['openid']);
+        });
     }
 };

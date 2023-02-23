@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreLessonRequest;
 use App\Http\Requests\UpdateLessonRequest;
 use App\Models\Lesson;
-use Illuminate\Support\Facades\Response;
 
 class LessonController extends Controller
 {
