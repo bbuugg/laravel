@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string('title')->comment('标题');
             $table->string('description', 1024)->nullable()->comment('描述');
-            $table->string('cover')->comment('课程封面');
+            $table->string('cover')->nullable()->comment('课程封面');
             $table->tinyInteger('state')->default(0)->comment('状态');
             $table->unsignedBigInteger('views')->default(0)->comment('浏览量');
             $table->unsignedTinyInteger('mode')->default(0)->comment('模式：章，节');
