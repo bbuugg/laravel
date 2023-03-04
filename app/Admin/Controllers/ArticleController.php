@@ -20,16 +20,18 @@ class ArticleController extends AdminController
     {
         return Grid::make(new Article(), function (Grid $grid) {
             $grid->column('id')->sortable();
-            $grid->column('category_id')->display(function ($categoryId) {
-                return Category::query()->find($categoryId)?->name;
-            });
-            $grid->column('title');
-            $grid->column('cover')->image(width: 50, height: 50);
+            $grid->column('category_id', '分类')
+                 ->display(function ($categoryId) {
+                     return Category::query()->find($categoryId)?->name;
+                 });
+            $grid->column('title', '标题');
+            $grid->column('cover', '封面')->image(width: 50, height: 50);
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
+                $filter->like('title', '标题');
             });
         });
     }

@@ -12,7 +12,8 @@ class Article extends Model
     use HasDateTimeFormatter;
     use SoftDeletes;
 
-    protected $casts = ['category_id' => 'integer'];
+    protected $fillable = ['title', 'content', 'created_at'];
+    protected $casts    = ['category_id' => 'integer'];
 
     public function category(): BelongsTo
     {
