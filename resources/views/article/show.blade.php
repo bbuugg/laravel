@@ -8,11 +8,25 @@
     <title>{{$article->title}}</title>
     <link rel="stylesheet" href="/vendor/editor-md/css/editormd.css"/>
     <link rel="stylesheet" href="/vendor/editor-md/css/editormd.preview.css"/>
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .content {
+            width: 70%;
+        }
+    </style>
 </head>
 <body>
-<h1 style="text-align: center">{{$article->title}}</h1>
-<div id="test-editor">
-    <textarea style="display:none;">{{$article->content}}</textarea>
+<div class="container">
+    <div class="content">
+        <h1 style="text-align: center">{{$article->title}}</h1>
+        <div id="test-editor">
+            <textarea style="display:none;">{{$article->content}}</textarea>
+        </div>
+    </div>
 </div>
 <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="/vendor/editor-md/lib/marked.min.js"></script>
