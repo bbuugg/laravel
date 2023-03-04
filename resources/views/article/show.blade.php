@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/vendor/editor-md/css/editormd.preview.css"/>
 </head>
 <body>
+<h1 style="text-align: center">{{$article->title}}</h1>
 <div id="test-editor">
     <textarea style="display:none;">{{$article->content}}</textarea>
 </div>
