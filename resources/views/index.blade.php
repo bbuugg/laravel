@@ -8,13 +8,16 @@
     <title>笔记</title>
 </head>
 <body>
-<ul>
-    @foreach($articles as $article)
-        <li><a href="{{route('article', ['article' => $article->id])}}">{{$article->title}}</a></li>
-    @endforeach
-</ul>
-<p style="text-align: center"><a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
-        陕ICP备2022013308号
-    </a></p>
+@foreach($categories as $category)
+    <h1>{{$category->name}}</h1>
+    <ul>
+        @foreach($category->articles as $article)
+            <li><a href="{{route('article', ['article' => $article->id])}}">{{$article->title}}</a></li>
+        @endforeach
+    </ul>
+@endforeach
+<p style="text-align: center">
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">陕ICP备2022013308号</a>
+</p>
 </body>
 </html>

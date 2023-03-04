@@ -36,8 +36,10 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection password
      * @property Grid\Column|Collection avatar
      * @property Grid\Column|Collection remember_token
+     * @property Grid\Column|Collection category_id
      * @property Grid\Column|Collection cover
      * @property Grid\Column|Collection content
+     * @property Grid\Column|Collection views
      * @property Grid\Column|Collection deleted_at
      * @property Grid\Column|Collection lesson_id
      * @property Grid\Column|Collection uuid
@@ -47,7 +49,6 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection exception
      * @property Grid\Column|Collection failed_at
      * @property Grid\Column|Collection state
-     * @property Grid\Column|Collection views
      * @property Grid\Column|Collection mode
      * @property Grid\Column|Collection email
      * @property Grid\Column|Collection token
@@ -57,7 +58,8 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection last_used_at
      * @property Grid\Column|Collection expires_at
      * @property Grid\Column|Collection question_id
-     * @property Grid\Column|Collection is_correct
+     * @property Grid\Column|Collection answer
+     * @property Grid\Column|Collection question
      * @property Grid\Column|Collection chapter_id
      * @property Grid\Column|Collection email_verified_at
      * @property Grid\Column|Collection openid
@@ -87,8 +89,10 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection password(string $label = null)
      * @method Grid\Column|Collection avatar(string $label = null)
      * @method Grid\Column|Collection remember_token(string $label = null)
+     * @method Grid\Column|Collection category_id(string $label = null)
      * @method Grid\Column|Collection cover(string $label = null)
      * @method Grid\Column|Collection content(string $label = null)
+     * @method Grid\Column|Collection views(string $label = null)
      * @method Grid\Column|Collection deleted_at(string $label = null)
      * @method Grid\Column|Collection lesson_id(string $label = null)
      * @method Grid\Column|Collection uuid(string $label = null)
@@ -98,7 +102,6 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection exception(string $label = null)
      * @method Grid\Column|Collection failed_at(string $label = null)
      * @method Grid\Column|Collection state(string $label = null)
-     * @method Grid\Column|Collection views(string $label = null)
      * @method Grid\Column|Collection mode(string $label = null)
      * @method Grid\Column|Collection email(string $label = null)
      * @method Grid\Column|Collection token(string $label = null)
@@ -108,7 +111,8 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection last_used_at(string $label = null)
      * @method Grid\Column|Collection expires_at(string $label = null)
      * @method Grid\Column|Collection question_id(string $label = null)
-     * @method Grid\Column|Collection is_correct(string $label = null)
+     * @method Grid\Column|Collection answer(string $label = null)
+     * @method Grid\Column|Collection question(string $label = null)
      * @method Grid\Column|Collection chapter_id(string $label = null)
      * @method Grid\Column|Collection email_verified_at(string $label = null)
      * @method Grid\Column|Collection openid(string $label = null)
@@ -143,8 +147,10 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection password
      * @property Show\Field|Collection avatar
      * @property Show\Field|Collection remember_token
+     * @property Show\Field|Collection category_id
      * @property Show\Field|Collection cover
      * @property Show\Field|Collection content
+     * @property Show\Field|Collection views
      * @property Show\Field|Collection deleted_at
      * @property Show\Field|Collection lesson_id
      * @property Show\Field|Collection uuid
@@ -154,7 +160,6 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection exception
      * @property Show\Field|Collection failed_at
      * @property Show\Field|Collection state
-     * @property Show\Field|Collection views
      * @property Show\Field|Collection mode
      * @property Show\Field|Collection email
      * @property Show\Field|Collection token
@@ -164,7 +169,8 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection last_used_at
      * @property Show\Field|Collection expires_at
      * @property Show\Field|Collection question_id
-     * @property Show\Field|Collection is_correct
+     * @property Show\Field|Collection answer
+     * @property Show\Field|Collection question
      * @property Show\Field|Collection chapter_id
      * @property Show\Field|Collection email_verified_at
      * @property Show\Field|Collection openid
@@ -194,8 +200,10 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection password(string $label = null)
      * @method Show\Field|Collection avatar(string $label = null)
      * @method Show\Field|Collection remember_token(string $label = null)
+     * @method Show\Field|Collection category_id(string $label = null)
      * @method Show\Field|Collection cover(string $label = null)
      * @method Show\Field|Collection content(string $label = null)
+     * @method Show\Field|Collection views(string $label = null)
      * @method Show\Field|Collection deleted_at(string $label = null)
      * @method Show\Field|Collection lesson_id(string $label = null)
      * @method Show\Field|Collection uuid(string $label = null)
@@ -205,7 +213,6 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection exception(string $label = null)
      * @method Show\Field|Collection failed_at(string $label = null)
      * @method Show\Field|Collection state(string $label = null)
-     * @method Show\Field|Collection views(string $label = null)
      * @method Show\Field|Collection mode(string $label = null)
      * @method Show\Field|Collection email(string $label = null)
      * @method Show\Field|Collection token(string $label = null)
@@ -215,7 +222,8 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection last_used_at(string $label = null)
      * @method Show\Field|Collection expires_at(string $label = null)
      * @method Show\Field|Collection question_id(string $label = null)
-     * @method Show\Field|Collection is_correct(string $label = null)
+     * @method Show\Field|Collection answer(string $label = null)
+     * @method Show\Field|Collection question(string $label = null)
      * @method Show\Field|Collection chapter_id(string $label = null)
      * @method Show\Field|Collection email_verified_at(string $label = null)
      * @method Show\Field|Collection openid(string $label = null)

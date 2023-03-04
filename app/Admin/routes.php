@@ -14,6 +14,7 @@ Route::group([
     $router->get('/', 'HomeController@index');
     $router->resource('lesson', 'LessonController');
     $router->resource('article', 'ArticleController');
+    $router->resource('question', 'QuestionController');
     $router->resource('category', 'CategoryController');
     $router->resource('lesson/{lessonId}/chapter', 'ChapterController');
     $router->resource('lesson/{lessonId}/chapter/{chapterId}/section', 'SectionController');

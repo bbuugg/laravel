@@ -2,20 +2,18 @@
 
 namespace App\Models;
 
+use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
-    protected $fillable = ['uuid', 'content', 'type'];
-    protected $casts    = ['type' => 'integer'];
-    protected $hidden   = ['id'];
+    use HasDateTimeFormatter;
+    use SoftDeletes;
 
-    public const TYPE_TEXT  = 0;
-    public const TYPE_IMAGE = 1;
-    public const TYPE_HTML  = 2;
-
-    public function answers(): HasMany
+    protected function answers(): HasMany
     {
-        return $this->hasMany(QuestionAnswer::class)->oldest('order')->oldest('id');
+        return $this->hasMany(QuestionAnswer::class);
     }
 }

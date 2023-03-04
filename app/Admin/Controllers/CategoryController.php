@@ -10,16 +10,17 @@ use Dcat\Admin\Http\Controllers\AdminController;
 
 class CategoryController extends AdminController
 {
+    protected $title = '分类';
+
     /**
      * Make a grid builder.
-     *
-     * @return Grid
      */
-    protected function grid()
+    protected function grid(): Grid
     {
         return Grid::make(new Category(), function (Grid $grid) {
             $grid->column('id')->sortable();
-            $grid->column('name');
+            $grid->column('title');
+            $grid->column('order');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
 
@@ -34,14 +35,13 @@ class CategoryController extends AdminController
      * Make a show builder.
      *
      * @param mixed $id
-     *
-     * @return Show
      */
-    protected function detail($id)
+    protected function detail($id): Show
     {
         return Show::make($id, new Category(), function (Show $show) {
             $show->field('id');
-            $show->field('name');
+            $show->field('title');
+            $show->field('order');
             $show->field('created_at');
             $show->field('updated_at');
         });
@@ -49,20 +49,15 @@ class CategoryController extends AdminController
 
     /**
      * Make a form builder.
-     *
-     * @return Form
      */
-    protected function form()
+    protected function form(): Form
     {
         return Form::make(new Category(), function (Form $form) {
-            $options = [];
-            \App\Models\Category::query()
-                                ->get()
-                                ->each(function (\App\Models\Category $category) use (&$options) {
-                                    $options[$category->id] = $category->name;
-                                });
-            $form->select('parent_id')->options($options)->default(1);
-            $form->text('name');
+            $form->select('parent_id', '分类')
+                 ->options(\App\Models\Category::selectOptions())
+                 ->default(0);
+            $form->text('title', '名称');
+            $form->number('order', '排序');
         });
     }
 }

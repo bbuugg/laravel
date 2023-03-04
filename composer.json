@@ -15,7 +15,8 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/scout": "^9.8",
-        "laravel/tinker": "^2.7"
+        "laravel/tinker": "^2.7",
+        "w7corp/easywechat": "^6.11"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [\App\Http\Controllers\IndexController::class, 'index']);
 Route::resource('article', \App\Http\Controllers\ArticleController::class)
      ->name('show', 'article');
+Route::any('wechat/official-account', [\App\Http\Controllers\WechatController::class, 'officialAccount']);
+
 
 Route::get('lesson', [\App\Http\Controllers\LessonController::class, 'index']);
 

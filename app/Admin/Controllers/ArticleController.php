@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends AdminController
 {
+    protected $title = '文章';
+
     /**
      * Make a grid builder.
      */
@@ -22,7 +24,7 @@ class ArticleController extends AdminController
             $grid->column('id')->sortable();
             $grid->column('category_id', '分类')
                  ->display(function ($categoryId) {
-                     return Category::query()->find($categoryId)?->name;
+                     return Category::query()->find($categoryId)?->title ?: '未分类';
                  });
             $grid->column('title', '标题');
             $grid->column('cover', '封面')->image(width: 50, height: 50);
@@ -74,15 +76,11 @@ TOF;
     protected function form(): Form
     {
         return Form::make(new Article(), function (Form $form) {
-            $options = [];
-            Category::query()->get()->each(function (Category $category) use (&$options) {
-                $options[$category->id] = $category->name;
-            });
             $form->select('category_id', '分类')
-                 ->options($options)
-                 ->default(1);
+                 ->options(Category::selectOptions())
+                 ->default(0);
             $form->text('title', '标题');
-            $form->image('cover', trans('admin.article.cover'));
+            $form->image('cover', __('admin.article.cover'));
             $form->markdown('content')->imageDirectory('images');
         });
     }

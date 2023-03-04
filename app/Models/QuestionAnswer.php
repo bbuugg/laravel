@@ -2,9 +2,19 @@
 
 namespace App\Models;
 
+use Dcat\Admin\Traits\HasDateTimeFormatter;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 class QuestionAnswer extends Model
 {
-    protected $fillable = ['question_id', 'is_correct', 'content', 'order'];
-    protected $casts    = ['question_id' => 'integer', 'order' => 'integer', 'is_correct' => 'boolean'];
-    protected $hidden   = ['id', 'question_id'];
+    use HasDateTimeFormatter;
+
+    protected $table = 'question_answers';
+
+    protected function question(): BelongsTo
+    {
+        return $this->belongsTo(Question::class);
+    }
 }
