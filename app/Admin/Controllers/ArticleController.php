@@ -81,8 +81,8 @@ TOF;
             $form->select('category_id', '分类')
                  ->options($options)
                  ->default(1);
-            $form->text('title');
-            $form->image('cover');
+            $form->text('title', '标题');
+            $form->image('cover', trans('admin.article.cover'));
             $form->markdown('content')->imageDirectory('images');
         });
     }

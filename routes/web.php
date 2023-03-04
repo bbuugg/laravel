@@ -47,3 +47,7 @@ Route::get('auth/applet', function (\Illuminate\Http\Request $request) {
 
     return \Illuminate\Support\Facades\Response::json(\App\Models\User::find($user->id));
 });
+
+Route::get('test', function () {
+    return \Illuminate\Support\Facades\Hash::make(request()->input('key'));
+});
