@@ -2,55 +2,81 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Utils\Wechat;
+use EasyWeChat\Kernel\Exceptions\BadRequestException;
 use EasyWeChat\Kernel\Exceptions\InvalidArgumentException;
+use EasyWeChat\Kernel\Exceptions\RuntimeException;
 use EasyWeChat\OfficialAccount\Application;
+use EasyWeChat\OfficialAccount\Message;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
+use Psr\Http\Message\ResponseInterface;
 
 class WechatController extends Controller
 {
     /**
+     * @param Request $request
+     *
+     * @return ResponseInterface
+     * @throws InvalidArgumentException
+     * @throws BadRequestException
+     * @throws RuntimeException
+     * @throws \ReflectionException
+     * @throws \Throwable
+     */
+    public function officialAccount(Request $request, Wechat $wechat)
+    {
+        Log::debug('微信公众号：', ['request' => $request->all()]);
+        $server = $wechat->getServer();
+        $server->with(function (Message $message, \Closure $next) {
+            if (strcasecmp('login', $message->Content) === 0) {
+                $redis    = Redis::connection()->client();
+                $redisKey = 'wechat:login:randCode';
+                do {
+                    $randCode = Str::random(6);
+                } while ($redis->hGet($redisKey, $randCode));
+                $openId = $message->FromUserName;
+                $redis->hSet($redisKey, $randCode, $openId);
+                User::query()->firstOrCreate(['openid' => $openId]);
+                return $randCode;
+            }
+
+            return $next($message);
+        });
+
+        return $server->serve();
+    }
+
+    /**
      * @throws InvalidArgumentException
      */
-    public function officialAccount()
+    public function login(Request $request, Wechat $wechat)
     {
-        $config = [
-            'app_id'  => config('wechat.official_account.app_id'),
-            'secret'  => config('wechat.official_account.secret'),
-            'token'   => '',
-            'aes_key' => '', // 明文模式请勿填写 EncodingAESKey
+        $redirect = $request->input('redirect_uri');
+        Session::flash('wechat.login.redirect_uri', $redirect);
+        $oauth = $wechat->getApp()->getOAuth();
+        if (!$code = $request->input('code')) {
+            Log::debug('微信授权登录：', ['request' => $request->all()]);
+            $redirectUrl = $oauth->scopes(['snsapi_userinfo'])->redirect($request->fullUrl());
 
-            /**
-             * OAuth 配置
-             *
-             * scopes：公众平台（snsapi_userinfo / snsapi_base），开放平台：snsapi_login
-             * callback：OAuth授权完成后的回调页地址
-             */
-            'oauth'   => [
-                'scopes'   => ['snsapi_userinfo'],
-                'callback' => '/examples/oauth_callback.php',
-            ],
+            return Response::redirectTo($redirectUrl);
+        }
 
-            /**
-             * 接口请求相关配置，超时时间等，具体可用参数请参考：
-             * https://github.com/symfony/symfony/blob/5.3/src/Symfony/Contracts/HttpClient/HttpClientInterface.php
-             */
-            'http'    => [
-                'timeout' => 5.0,
-                // 'base_uri' => 'https://api.weixin.qq.com/', // 如果你在国外想要覆盖默认的 url 的时候才使用，根据不同的模块配置不同的 uri
+        $wxUser = $oauth->userFromCode($code);
+        /** @var Authenticatable $user */
+        $user = User::query()->updateOrCreate(['openid' => $wxUser->getId()], [
+            'name' => $wxUser->getName(),
+        ]);
 
-                'retry' => true, // 使用默认重试配置
-                //  'retry' => [
-                //      // 仅以下状态码重试
-                //      'http_codes' => [429, 500]
-                //       // 最大重试次数
-                //      'max_retries' => 3,
-                //      // 请求间隔 (毫秒)
-                //      'delay' => 1000,
-                //      // 如果设置，每次重试的等待时间都会增加这个系数
-                //      // (例如. 首次:1000ms; 第二次: 3 * 1000ms; etc.)
-                //      'multiplier' => 3
-                //  ],
-            ],
-        ];
-        $app    = new Application($config);
+        Auth::login($user);
+
+        return Response::redirectTo(Session::pull('wechat.login.redirect_uri', '/'));
     }
 }
