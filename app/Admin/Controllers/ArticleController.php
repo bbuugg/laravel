@@ -21,14 +21,16 @@ class ArticleController extends AdminController
     protected function grid(): Grid
     {
         return Grid::make(new Article(), function (Grid $grid) {
+            $grid->model()->orderBy('updated_at', 'DESC');
             $grid->column('id')->sortable();
             $grid->column('category_id', '分类')
                  ->display(function ($categoryId) {
                      return Category::query()->find($categoryId)?->title ?: '未分类';
                  });
-            $grid->column('title', '标题');
+            $grid->column('title', '标题')->link(fn() => admin_url('article/' . $this->id));
             $grid->column('cover', '封面')->image(width: 50, height: 50);
-            $grid->column('created_at');
+            $grid->column('views', '浏览量');
+            $grid->column('created_at')->sortable();
             $grid->column('updated_at')->sortable();
 
             $grid->filter(function (Grid\Filter $filter) {

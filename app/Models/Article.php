@@ -6,11 +6,11 @@ use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 class Article extends Model
 {
-    use HasDateTimeFormatter;
-    use SoftDeletes;
+    use HasDateTimeFormatter, SoftDeletes, Searchable;
 
     protected $fillable = ['title', 'content', 'created_at'];
     protected $casts    = ['category_id' => 'integer'];

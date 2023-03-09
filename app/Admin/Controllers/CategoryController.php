@@ -4,31 +4,37 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Repositories\Category;
 use Dcat\Admin\Form;
-use Dcat\Admin\Grid;
-use Dcat\Admin\Show;
 use Dcat\Admin\Http\Controllers\AdminController;
+use Dcat\Admin\Layout\Content;
+use Dcat\Admin\Show;
+use Dcat\Admin\Tree;
 
 class CategoryController extends AdminController
 {
     protected $title = '分类';
 
-    /**
-     * Make a grid builder.
-     */
-    protected function grid(): Grid
+    public function index(Content $content): Content
     {
-        return Grid::make(new Category(), function (Grid $grid) {
-            $grid->column('id')->sortable();
-            $grid->column('title');
-            $grid->column('order');
-            $grid->column('created_at');
-            $grid->column('updated_at')->sortable();
+        return $content
+            ->title($this->title())
+            ->description(trans('admin.list'))
+            ->body(new Tree(new \App\Models\Category(), function (Tree $tree) {
+                $tree->disableCreateButton();
+                $tree->disableEditButton();
 
-            $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
-
-            });
-        });
+                $tree->branch(function ($branch) {
+                    $branchName = htmlspecialchars($branch['title']);
+                    $branchId   = $branch['id'];
+                    $branchDesc = htmlspecialchars($branch['description']);
+                    return <<<EOT
+<div class='pull-left' style='min-width:310px; cursor: pointer'>
+    <b>{$branchName}</b>&nbsp;&nbsp;[<span class='text-primary'>{$branchId}</span>]
+</div>
+&nbsp; {$branchDesc}
+<a class="dd-nodrag"></a>
+EOT;
+                });
+            }));
     }
 
     /**
@@ -41,6 +47,7 @@ class CategoryController extends AdminController
         return Show::make($id, new Category(), function (Show $show) {
             $show->field('id');
             $show->field('title');
+            $show->field('description');
             $show->field('order');
             $show->field('created_at');
             $show->field('updated_at');
@@ -57,6 +64,7 @@ class CategoryController extends AdminController
                  ->options(\App\Models\Category::selectOptions())
                  ->default(0);
             $form->text('title', '名称');
+            $form->text('description');
             $form->number('order', '排序');
         });
     }
