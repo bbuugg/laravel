@@ -17,8 +17,8 @@ Route::get('/', [\App\Http\Controllers\IndexController::class, 'index']);
 Route::resource('article', \App\Http\Controllers\ArticleController::class)
      ->name('show', 'article');
 Route::any('wechat/official-account', [\App\Http\Controllers\WechatController::class, 'officialAccount']);
-Route::any('wechat/login', [\App\Http\Controllers\WechatController::class, 'login']);
-Route::any('auth/code', [\App\Http\Controllers\Auth\LoginController::class, 'code']);
+Route::get('wechat/login', [\App\Http\Controllers\WechatController::class, 'login']);
+Route::get('auth/code', [\App\Http\Controllers\Auth\LoginController::class, 'code']);
 
 
 Route::get('lesson', [\App\Http\Controllers\LessonController::class, 'index']);
@@ -50,8 +50,4 @@ Route::get('auth/applet', function (\Illuminate\Http\Request $request) {
     }
 
     return \Illuminate\Support\Facades\Response::json(\App\Models\User::find($user->id));
-});
-
-Route::get('test', function () {
-    return \Illuminate\Support\Facades\Hash::make(request()->input('key'));
 });
